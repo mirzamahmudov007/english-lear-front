@@ -8,15 +8,23 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [rememberDevice, setRememberDevice] = useState(false);
   const navigate = useNavigate();
+  
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  try {
-    const response = await login(username, password);
-    localStorage.setItem('token', response.token);
-    navigate('/dashboard');
-  } catch (error) {
-    console.error(error);
-  }  
+    try {
+      const response = await login(username, password);
+      
+      // Check if response exists and has a token property
+      if (response && response.token) {
+        localStorage.setItem('token', response.token);
+        navigate('/dashboard');
+      } else {
+        console.error('Login failed: No token received');
+        // Handle case where login was successful but no token was returned
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }  
   };
 
   return (
