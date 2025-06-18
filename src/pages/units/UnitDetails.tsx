@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, BookOpen, Calendar, Clock, Star, TrendingUp, Plus, Search, Filter } from 'lucide-react';
+import { ArrowLeft, BookOpen, Calendar, Clock, Star, TrendingUp, Plus, Search, Filter, Brain } from 'lucide-react';
 import { unitService, Unit } from '../../services/unitService';
 
 const UnitDetails: React.FC = () => {
@@ -256,18 +256,21 @@ const UnitDetails: React.FC = () => {
           </button>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200">
+        <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-6 border border-orange-200">
           <div className="flex items-center space-x-3 mb-4">
-            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+              <Brain className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-green-800">Test o'tkazish</h3>
-              <p className="text-sm text-green-600">Bilimingizni sinab ko'ring</p>
+              <h3 className="font-semibold text-orange-800">Quiz o'tkazish</h3>
+              <p className="text-sm text-orange-600">Bilimingizni sinab ko'ring</p>
             </div>
           </div>
-          <button className="w-full py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors font-medium">
-            Test boshlash
+          <button 
+            onClick={() => navigate(`/quiz/unit/${unit.id}`)}
+            className="w-full py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-medium"
+          >
+            Quiz boshlash
           </button>
         </div>
 

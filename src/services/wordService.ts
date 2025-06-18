@@ -1,12 +1,12 @@
-import axios from "axios";
 import api from "./api";
+
 export interface Word {
   id: number;
   englishWord: string;
   uzbekWord: string;
   example: string;
   audioPath: string;
-  masteryLevel: 'NEW' | 'LEARNING' | 'MASTERED';
+  masteryLevel: 'NEW' | 'LEARNING' | 'PRACTICED' | 'MASTERED';
   createdAt: string;
   updatedAt: string;
   categoryId: number;
@@ -15,7 +15,7 @@ export interface Word {
   unitName: string;
 }
 
-interface WordResponse {
+export interface WordResponse {
   content: Word[];
   pageable: {
     pageNumber: number;
@@ -44,7 +44,7 @@ interface WordResponse {
   empty: boolean;
 }
 
-interface CreateWordRequest {
+export interface CreateWordRequest {
   englishWord: string;
   uzbekWord: string;
   example: string;
@@ -53,62 +53,28 @@ interface CreateWordRequest {
   unitId: number;
 }
 
-const API_BASE_URL = 'http://64.23.219.188:9090/api';
-
-const wordService = {
-  async getWords(page: number, size: number = 10): Promise<WordResponse> {
-    try {
-      const response = await api.get(`/words`, {
-        params: {
-          page,
-          size
-        }
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching words:', error);
-      throw error;
-    }
+export const wordService = {
+  getWords: async (page: number = 0, size: number = 10): Promise<WordResponse> => {
+    const response = await api.get(`/words?page=${page}&size=${size}`);
+    return response.data;
   },
 
-  async createWord(wordData: CreateWordRequest): Promise<Word> {
-    try {
-      const response = await api.post(`/words`, wordData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating word:', error);
-      throw error;
-    }
+  getWordById: async (id: number): Promise<Word> => {
+    const response = await api.get(`/words/${id}`);
+    return response.data;
   },
 
-  async updateWord(id: number, wordData: Partial<CreateWordRequest>): Promise<Word> {
-    try {
-      const response = await api.put(`/words/${id}`, wordData);
-      return response.data;
-    } catch (error) {
-      console.error('Error updating word:', error);
-      throw error;
-    }
+  createWord: async (word: CreateWordRequest): Promise<Word> => {
+    const response = await api.post(`/words`, word);
+    return response.data;
   },
 
-  async deleteWord(id: number): Promise<void> {
-    try {
-      await api.delete(`/words/${id}`);
-    } catch (error) {
-      console.error('Error deleting word:', error);
-      throw error;
-    }
+  updateWord: async (id: number, word: CreateWordRequest): Promise<Word> => {
+    const response = await api.put(`/words/${id}`, word);
+    return response.data;
   },
 
-  async getWordById(id: number): Promise<Word> {
-    try {
-      const response = await api.get(`/words/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching word by ID:', error);
-      throw error;
-    }
+  deleteWord: async (id: number): Promise<void> => {
+    await api.delete(`/words/${id}`);
   }
 };
-
-export default wordService;
