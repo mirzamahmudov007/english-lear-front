@@ -43,9 +43,7 @@ export interface QuizResult {
 
 export const quizService = {
   generateQuiz: async (quizType: 'UNIT' | 'CATEGORY' | 'RANDOM', sourceId: number, direction: 'uz-en' | 'en-uz' = 'uz-en'): Promise<Quiz> => {
-    const response = await api.get(`/quizzes/generate?quizType=${quizType}&sourceId=${sourceId}&direction=${direction}`);
-    return response.data;
-  },
+    const response = await api.post(`/quizzes/generate?quizType=${quizType}&sourceId=${sourceId}&direction=${direction}`);
 
   submitQuiz: async (quizId: number, answers: QuizAnswer[]): Promise<void> => {
     await api.post(`/quizzes/submit?quizId=${quizId}`, answers);

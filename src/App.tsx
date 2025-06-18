@@ -1,11 +1,9 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import MainLayout from './layout/MainLayout';
 import Vocabulary from './pages/my-vocabulary/Vocabulary';
-import Unit from './pages/units/Unit';  
 import Categories from './pages/categories/Categories';
 import Units from './pages/units/Units';
 import UnitDetails from './pages/units/UnitDetails';
