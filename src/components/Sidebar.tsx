@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, BookOpen, Users, Layers, Grid3X3, Settings, Power, X, Home, Sparkles } from 'lucide-react';
+import { ChevronDown, ChevronRight, BookOpen, Users, Layers, Grid3X3, Settings, Power, X, Home, Sparkles, Brain } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
 
@@ -40,6 +40,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       name: "Kategoriyalar",
       icon: <Grid3X3 className="w-5 h-5" />,
       path: '/categories'
+    },
+    {
+      name: "Quiz",
+      icon: <Brain className="w-5 h-5" />,
+      path: '/quiz',
+      badge: "Hot"
     }
   ];
 
@@ -111,6 +117,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     <span className={`px-2 py-0.5 text-xs font-medium rounded-full transition-colors duration-200 ${
                       isActive 
                         ? 'bg-white/20 text-white' 
+                        : item.badge === 'Hot' 
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white'
                         : 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white'
                     }`}>
                       {item.badge}
